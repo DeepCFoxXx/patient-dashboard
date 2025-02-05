@@ -1,50 +1,65 @@
-# React + TypeScript + Vite
+# Bioliberty Dashboard
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+This is a dashboard built to display therapy session activity and patient details
+It visualizes metrics related to sessions.
 
-Currently, two official plugins are available:
+The dashboard is built using **React** and **TypeScript**, with responsive visualizations powered by the **Nivo** charting library.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Features
 
-## Expanding the ESLint configuration
+- **Patient Details**: Displays the patient's name, date of birth, and other basic information.
+- **Bar Graph**: A stacked bar graph displaying the total repetitions completed by the patient each day. Each bar is divided into individual therapy sessions.
+- **Summary Statistics**: Key metrics displayed as simple statistics, including:
+  - Average reps per session
+  - Average therapy duration per session
+  - Average RPE (Rate of Perceived Exertion) per session
+- **Responsiveness**: The dashboard is designed to function well on both desktop and mobile devices.
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+## Requirements
 
-- Configure the top-level `parserOptions` property like this:
+To run this project locally, you need to have the following installed on your machine:
 
-```js
-export default tseslint.config({
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
-```
+- **Node.js** (>= v16.0.0)
+- **npm**
 
-- Replace `tseslint.configs.recommended` to `tseslint.configs.recommendedTypeChecked` or `tseslint.configs.strictTypeChecked`
-- Optionally add `...tseslint.configs.stylisticTypeChecked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and update the config:
+## Installation & Setup
 
-```js
-// eslint.config.js
-import react from 'eslint-plugin-react'
+1. **Clone the repository**:
 
-export default tseslint.config({
-  // Set the react version
-  settings: { react: { version: '18.3' } },
-  plugins: {
-    // Add the react plugin
-    react,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended rules
-    ...react.configs.recommended.rules,
-    ...react.configs['jsx-runtime'].rules,
-  },
-})
-```
+   ```bash
+   git clone https://github.com/DeepCFoxXx/patient-dashboard
+   cd patient-dashboard
+
+2. **Install Dependencies**:
+
+   ```bash
+   npm install
+
+3. **Run App**:
+
+   ```bash
+   npm run dev
+
+
+## More To Add ?
+
+What would I have done if I had more time / what is needed:
+
+1. Further CSS Refinement (Layout / Styling / Branding)
+   Its very basic to stay within the time limit
+   Could use further fleshing out
+
+2. General Refinement
+   Could move functions into a helper section
+   Could optimise logic for those functions
+
+3. Went with basic error handling and loading
+   This would have to be worked on more
+
+4. Testing both of component composition and how it handles data
+   Also on performance and accessibility
+
+5. Documentation (Story-Book)
+
+6. More time spent on responsiveness would need to test further
+   And adjust as needed
