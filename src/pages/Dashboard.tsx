@@ -4,7 +4,7 @@ import LineChart from "../components/LineChart";
 import PieChart from "../components/PieChart";
 import { activityLogs } from "../data/activityLogs";
 import { patientData } from "../data/patientData";
-import { calculateAverages, convertSecondsToHMS, prepareChartData, prepareRpeData, processSessionData } from "../helpers/sessionHelpers"; // Import the helper functions
+import { calculateAverages, convertSecondsToHMS, prepareChartData, prepareRpeData, processSessionData } from "../helpers/sessionHelpers";
 import "../styles/styles.css";
 import { ActivityLog, Patient, SessionDataMap } from "../types";
 

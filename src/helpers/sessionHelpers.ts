@@ -4,9 +4,7 @@ import { SessionDataMap } from "../types";
 export const processSessionData = (
   logs: { sessionId: string; durationInSeconds: number; completedRepCount: number; rpeScore: number }[]
 ): SessionDataMap => {
-  return logs.reduce((acc, log) => {
-    const { sessionId, durationInSeconds, completedRepCount, rpeScore } = log;
-
+  return logs.reduce((acc, { sessionId, durationInSeconds, completedRepCount, rpeScore }) => {
     if (!acc[sessionId]) {
       acc[sessionId] = { totalDuration: 0, sessionCount: 0, totalReps: 0, totalRpeScore: 0, rpeCount: 0 };
     }
@@ -25,65 +23,63 @@ export const convertSecondsToHMS = (seconds: number): string => {
   const hours = Math.floor(seconds / 3600);
   const minutes = Math.floor((seconds % 3600) / 60);
   const remainingSeconds = Math.round(seconds % 60);
-  return `${hours}h ${minutes}m ${remainingSeconds}s`;
+
+  return `${hours.toString().padStart(2, "0")}h ${minutes.toString().padStart(2, "0")}m ${remainingSeconds.toString().padStart(2, "0")}s`;
 };
 
 export const prepareChartData = (logs: { timestamp: string; completedRepCount: number }[]) => {
-  return logs.reduce((acc, log) => {
-    const date = log.timestamp.split("T")[0];
-    const existingEntry = acc.find((entry) => entry.date === date);
+  const repsByDate = logs.reduce((acc, { timestamp, completedRepCount }) => {
+    const date = timestamp.split("T")[0];
 
-    if (existingEntry) {
-      existingEntry.totalReps += log.completedRepCount;
+    if (acc.has(date)) {
+      acc.set(date, acc.get(date)! + completedRepCount);
     } else {
-      acc.push({ date, totalReps: log.completedRepCount });
+      acc.set(date, completedRepCount);
     }
 
     return acc;
-  }, [] as { date: string; totalReps: number }[]);
+  }, new Map<string, number>());
+
+  return Array.from(repsByDate, ([date, totalReps]) => ({ date, totalReps }));
 };
 
+
 export const prepareRpeData = (logs: { timestamp: string; rpeScore: number }[]) => {
-    const rpeData = logs.map((log) => ({
-      date: log.timestamp.split("T")[0],
-      rpe: log.rpeScore,
-    }));
+  const rpeDataMap = new Map<string, number>();
 
-    const uniqueRpeData = Array.from(new Map(rpeData.map((item) => [item.date, item])).values()).map(item => ({
-      x: item.date,
-      y: item.rpe,
-    }));
+  logs.forEach(({ timestamp, rpeScore }) => {
+    const date = timestamp.split("T")[0];
 
-    return [
-      {
-        id: "RPE",
-        data: uniqueRpeData,
-      },
-    ];
-  };
+    rpeDataMap.set(date, rpeScore);
+  });
+
+  const uniqueRpeData = Array.from(rpeDataMap, ([date, rpe]) => ({
+    x: date,
+    y: rpe,
+  }));
+
+  return [
+    {
+      id: "RPE",
+      data: uniqueRpeData,
+    },
+  ];
+};
 
 
 export const calculateAverages = (sessionData: SessionDataMap) => {
-  const totalSessions = Object.values(sessionData).reduce(
-    (count, session) => count + session.sessionCount,
-    0
+  const { totalDuration, totalReps, totalRpeScore, totalRpeEntries } = Object.values(sessionData).reduce(
+    (totals, { totalDuration, totalReps, totalRpeScore, rpeCount }) => {
+      totals.totalDuration += totalDuration;
+      totals.totalReps += totalReps;
+      totals.totalRpeScore += totalRpeScore;
+      totals.totalRpeEntries += rpeCount;
+      return totals;
+    },
+    { totalDuration: 0, totalReps: 0, totalRpeScore: 0, totalRpeEntries: 0 }
   );
-  const totalDuration = Object.values(sessionData).reduce(
-    (sum, session) => sum + session.totalDuration,
-    0
-  );
-  const totalReps = Object.values(sessionData).reduce(
-    (sum, session) => sum + session.totalReps,
-    0
-  );
-  const totalRpeScore = Object.values(sessionData).reduce(
-    (sum, session) => sum + session.totalRpeScore,
-    0
-  );
-  const totalRpeEntries = Object.values(sessionData).reduce(
-    (count, session) => count + session.rpeCount,
-    0
-  );
+
+  const totalSessions = Object.keys(sessionData).length;
 
   const averageDuration = totalSessions > 0 ? totalDuration / totalSessions : 0;
   const averageReps = totalSessions > 0 ? totalReps / totalSessions : 0;
@@ -91,3 +87,5 @@ export const calculateAverages = (sessionData: SessionDataMap) => {
 
   return { averageDuration, averageReps, averageRpe };
 };
+
+
