@@ -4,27 +4,9 @@ import LineChart from "../components/LineChart";
 import PieChart from "../components/PieChart";
 import { activityLogs } from "../data/activityLogs";
 import { patientData } from "../data/patientData";
-import { convertSecondsToHMS, prepareChartData, prepareRpeData, processSessionData } from "../helpers/sessionHelpers";
+import { calculateAverages, convertSecondsToHMS, prepareChartData, prepareRpeData, processSessionData } from "../helpers/sessionHelpers"; // Import the helper functions
 import "../styles/styles.css";
-
-interface ActivityLog {
-  patientId: string;
-  sessionId: string;
-  activityLogId: string;
-  activityType: string;
-  timestamp: string;
-  durationInSeconds: number;
-  completedRepCount: number;
-  rpeScore: number;
-}
-
-interface Patient {
-  patientId: string;
-  firstName: string;
-  lastName: string;
-  dateOfBirth: string;
-  dateCreated: string;
-}
+import { ActivityLog, Patient, SessionDataMap } from "../types";
 
 const Dashboard: React.FC = () => {
   const [patient, setPatient] = useState<Patient | null>(null);
@@ -43,24 +25,14 @@ const Dashboard: React.FC = () => {
     }
   }, []);
 
-  // Process session data
-  const sessionData = processSessionData(logs);
+  const sessionData: SessionDataMap = processSessionData(logs);
 
-  const totalSessions = Object.values(sessionData).reduce((count, session) => count + session.sessionCount, 0);
-  const totalDuration = Object.values(sessionData).reduce((sum, session) => sum + session.totalDuration, 0);
-  const totalReps = Object.values(sessionData).reduce((sum, session) => sum + session.totalReps, 0);
-  const totalRpeScore = Object.values(sessionData).reduce((sum, session) => sum + session.totalRpeScore, 0);
-  const totalRpeEntries = Object.values(sessionData).reduce((count, session) => count + session.rpeCount, 0);
-
-  const averageDuration = totalSessions > 0 ? totalDuration / totalSessions : 0;
-  const averageReps = totalSessions > 0 ? totalReps / totalSessions : 0;
-  const averageRpe = totalRpeEntries > 0 ? totalRpeScore / totalRpeEntries : 0;
+  const { averageDuration, averageReps, averageRpe } = calculateAverages(sessionData);
 
   const formattedAverageDuration = convertSecondsToHMS(averageDuration);
 
-  // Prepare chart data
   const chartData = prepareChartData(logs);
-  const rpeChartData = [{ id: "RPE", data: prepareRpeData(logs) }];
+  const rpeChartData = prepareRpeData(logs);
 
   if (loading) return <p className="loading">Loading...</p>;
   if (error) return <p className="error">{error}</p>;
