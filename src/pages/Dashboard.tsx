@@ -4,8 +4,8 @@ import LineChart from "../components/LineChart";
 import PieChart from "../components/PieChart";
 import { activityLogs } from "../data/activityLogs";
 import { patientData } from "../data/patientData";
+import { convertSecondsToHMS, prepareChartData, prepareRpeData, processSessionData } from "../helpers/sessionHelpers";
 import "../styles/styles.css";
-
 
 interface ActivityLog {
   patientId: string;
@@ -43,22 +43,8 @@ const Dashboard: React.FC = () => {
     }
   }, []);
 
-  // Could be moved out as helper functions (sperate file)
-  const sessionData = logs.reduce((acc, log) => {
-    const { sessionId, durationInSeconds, completedRepCount, rpeScore } = log;
-
-    if (!acc[sessionId]) {
-      acc[sessionId] = { totalDuration: 0, sessionCount: 0, totalReps: 0, totalRpeScore: 0, rpeCount: 0 };
-    }
-
-    acc[sessionId].totalDuration += durationInSeconds;
-    acc[sessionId].sessionCount += 1;
-    acc[sessionId].totalReps += completedRepCount;
-    acc[sessionId].totalRpeScore += rpeScore;
-    acc[sessionId].rpeCount += 1;
-
-    return acc;
-  }, {} as Record<string, { totalDuration: number; sessionCount: number; totalReps: number; totalRpeScore: number; rpeCount: number }>);
+  // Process session data
+  const sessionData = processSessionData(logs);
 
   const totalSessions = Object.values(sessionData).reduce((count, session) => count + session.sessionCount, 0);
   const totalDuration = Object.values(sessionData).reduce((sum, session) => sum + session.totalDuration, 0);
@@ -70,46 +56,11 @@ const Dashboard: React.FC = () => {
   const averageReps = totalSessions > 0 ? totalReps / totalSessions : 0;
   const averageRpe = totalRpeEntries > 0 ? totalRpeScore / totalRpeEntries : 0;
 
-  const convertSecondsToHMS = (seconds: number) => {
-    const hours = Math.floor(seconds / 3600);
-    const minutes = Math.floor((seconds % 3600) / 60);
-    const remainingSeconds = Math.round(seconds % 60);
-    return `${hours}h ${minutes}m ${remainingSeconds}s`;
-  };
-
   const formattedAverageDuration = convertSecondsToHMS(averageDuration);
 
-  const chartData = logs.reduce((acc, log) => {
-    const date = log.timestamp.split("T")[0];
-    const existingEntry = acc.find((entry) => entry.date === date);
-
-    if (existingEntry) {
-      existingEntry.totalReps += log.completedRepCount;
-    } else {
-      acc.push({ date, totalReps: log.completedRepCount });
-    }
-
-    return acc;
-  }, [] as { date: string; totalReps: number }[]);
-
-  const rpeData = logs.map((log) => ({
-    date: log.timestamp.split("T")[0],
-    rpe: log.rpeScore,
-  }));
-
-  const uniqueRpeData = Array.from(
-    new Map(rpeData.map((item) => [item.date, item])).values()
-  );
-
-  const rpeChartData = [
-    {
-      id: "RPE",
-      data: uniqueRpeData.map((item) => ({
-        x: item.date,
-        y: item.rpe,
-      })),
-    },
-  ];
+  // Prepare chart data
+  const chartData = prepareChartData(logs);
+  const rpeChartData = [{ id: "RPE", data: prepareRpeData(logs) }];
 
   if (loading) return <p className="loading">Loading...</p>;
   if (error) return <p className="error">{error}</p>;
@@ -152,7 +103,6 @@ const Dashboard: React.FC = () => {
         <PieChart data={durationPieData} />
       </div>
 
-      {/* Would like to add some dynamic colours here depending on output */}
       <div className="card">
         <h2>Average RPE Per Session</h2>
         <p>{averageRpe.toFixed(2)}</p>
@@ -162,7 +112,6 @@ const Dashboard: React.FC = () => {
         <h2>RPE Over Time</h2>
         <LineChart data={rpeChartData} />
       </div>
-
     </div>
   );
 };
