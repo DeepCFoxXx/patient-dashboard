@@ -20,12 +20,15 @@ export const processSessionData = (
 };
 
 export const convertSecondsToHMS = (seconds: number): string => {
+  if (seconds < 0) {
+    throw new Error("Invalid input: negative time duration");
+  }
   const hours = Math.floor(seconds / 3600);
   const minutes = Math.floor((seconds % 3600) / 60);
   const remainingSeconds = Math.round(seconds % 60);
-
-  return `${hours.toString().padStart(2, "0")}h ${minutes.toString().padStart(2, "0")}m ${remainingSeconds.toString().padStart(2, "0")}s`;
+  return `${hours}h ${minutes}m ${remainingSeconds}s`;
 };
+
 
 export const prepareChartData = (logs: { timestamp: string; completedRepCount: number }[]) => {
   const repsByDate = logs.reduce((acc, { timestamp, completedRepCount }) => {

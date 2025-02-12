@@ -1,4 +1,4 @@
-# Bioliberty Dashboard
+# Patient Dashboard
 
 This is a dashboard built to display therapy session activity and patient details
 It visualizes metrics related to sessions.
@@ -41,25 +41,3 @@ To run this project locally, you need to have the following installed on your ma
    npm run dev
 
 
-## More To Add ?
-
-What would I have done if I had more time / what is needed:
-
-1. Further CSS Refinement (Layout / Styling / Branding)
-   Its very basic to stay within the time limit
-   Could use further fleshing out
-
-2. General Refinement
-   Could move functions into a helper section
-   Could optimise logic for those functions
-
-3. Went with basic error handling and loading
-   This would have to be worked on more
-
-4. Testing both of component composition and how it handles data
-   Also on performance and accessibility
-
-5. Documentation (Story-Book)
-
-6. More time spent on responsiveness would need to test further
-   And adjust as needed
