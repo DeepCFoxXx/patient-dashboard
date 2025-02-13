@@ -38,34 +38,35 @@ const Dashboard: React.FC = () => {
   if (error) return <p className="error">{error}</p>;
 
   const durationPieData = [
-    { id: "Short (<15 min)", label: "Short (<15 min)", value: 10 },
-    { id: "Medium (15-30 min)", label: "Medium (15-30 min)", value: 30 },
-    { id: "Long (>30 min)", label: "Long (>30 min)", value: 20 },
+    { id: "Short", label: "Short", value: 10 },
+    { id: "Medium", label: "Medium", value: 30 },
+    { id: "Long", label: "Long", value: 20 },
   ];
 
   return (
     <div className="dashboard">
-      <div className="card">
-        <h2>Patient Details</h2>
+      <div className="card patient-details">
+        <h2 className="underline">Patient Details</h2>
         {patient && (
-          <>
-            <p>Name: {patient.firstName} {patient.lastName}</p>
-            <p>Date of Birth: {patient.dateOfBirth}</p>
-            <p>Average Reps Per Session: {Math.round(averageReps)} reps</p>
-            <p>Average Therapy Duration: {formattedAverageDuration}</p>
-            <p>Average RPE Per Session: {averageRpe.toFixed(2)}</p>
-          </>
+          <div className="patient-info">
+            <div className="patient-info-left">
+              <p>Name: {patient.firstName} {patient.lastName}</p>
+              <p>Date of Birth: {patient.dateOfBirth}</p>
+              <p>Average Reps Per Session: {Math.round(averageReps)} reps</p>
+              <p>Average Therapy Duration: {formattedAverageDuration}</p>
+              <p>Average RPE Per Session: {averageRpe.toFixed(2)}</p>
+            </div>
+            <div className="patient-info-right">
+              <h3>Average Therapy Duration Long / Medium / Short</h3>
+              <PieChart data={durationPieData} />
+            </div>
+          </div>
         )}
       </div>
 
       <div className="card chart-container">
         <h2>Reps Per Day</h2>
         <BarChart data={chartData} />
-      </div>
-
-      <div className="card chart-container">
-        <h2>Average Therapy Duration Long / Medium / Short</h2>
-        <PieChart data={durationPieData} />
       </div>
 
       <div className="card chart-container">

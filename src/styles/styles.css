@@ -1,43 +1,158 @@
 body {
-    font-family: Arial, sans-serif;
-    background-color: #f8f8f8;
-    margin: 0;
-    padding: 20px;
+  font-family: Arial, sans-serif;
+  background-color: #f8f8f8;
+  margin: 0;
+  padding: 20px;
+}
+
+.dashboard {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.card {
+  width: 100%;
+  margin: 20px;
+  padding: 20px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  background-color: #f9f9f9;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+}
+
+.card:hover {
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  transform: translateY(-5px);
+}
+
+.patient-details {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  margin-bottom: 20px;
+  max-width: 860px;
+  width: 100%;
+}
+
+.patient-info {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  width: 100%;
+}
+
+.patient-info-left {
+  flex: 1 1 50%;
+  min-width: 300px;
+}
+
+.patient-info-right {
+  flex: 1 1 50%;
+  min-width: 300px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin-top: -90px;
+  margin-left: -60px;
+}
+
+.patient-info p {
+  font-size: 16px;
+  line-height: 1.8;
+  color: #333;
+}
+
+.patient-info-left p {
+  margin-bottom: 15px;
+}
+
+.chart-container {
+  width: 100%;
+  height: 450px;
+  overflow: hidden;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 20px;
+  padding: 10px;
+  box-sizing: border-box;
+}
+
+.chart-container h2 {
+  font-size: 22px;
+  font-weight: 600;
+  color: #333;
+  margin-bottom: 20px;
+  line-height: 1.4;
+}
+
+.chart-container:hover {
+  transform: scale(1.02);
+  transition: all 0.3s ease;
+}
+
+.error {
+  color: red;
+  font-weight: bold;
+  font-size: 18px;
+}
+
+.loading {
+  font-style: italic;
+  font-size: 16px;
+}
+
+@media (max-width: 768px) {
+  .chart-container {
+    height: 300px;
+    margin-top: 15px;
   }
 
-  .dashboard {
-    max-width: 900px;
-    margin: 0 auto;
-    padding: 20px;
+  .chart-container h2 {
+    font-size: 20px;
+    margin-bottom: 15px;
   }
 
-  .card {
-    width: 100%;
-    margin: 20px;
-    padding: 20px;
-    border: 1px solid #ddd;
-    border-radius: 8px;
-    background-color: #f9f9f9;
-    display: flex;
+  .patient-info-left p,
+  .patient-info-right p {
+    font-size: 14px;
+    line-height: 1.6;
+  }
+
+  .patient-details {
     flex-direction: column;
+    max-width: 100%;
+    padding: 10px;
+  }
+
+  .patient-info-left,
+  .patient-info-right {
+    min-width: 100%;
+    flex: 1 1 100%;
+  }
+}
+
+@media (max-width: 480px) {
+  .card {
+    padding: 15px;
+  }
+
+  .patient-info p {
+    font-size: 14px;
+  }
+
+  .patient-info-left p,
+  .patient-info-right p {
+    font-size: 13px;
   }
 
   .chart-container {
-    width: 100%;
-    height: 400px;
-    overflow: hidden;
-    position: relative;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    height: 250px;
   }
 
-
-  .error {
-    color: red;
-    font-weight: bold;
-  }
-
-  .loading {
-    font-style: italic;
-  }
+}
