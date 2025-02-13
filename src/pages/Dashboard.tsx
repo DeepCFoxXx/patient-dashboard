@@ -51,13 +51,11 @@ const Dashboard: React.FC = () => {
           <>
             <p>Name: {patient.firstName} {patient.lastName}</p>
             <p>Date of Birth: {patient.dateOfBirth}</p>
+            <p>Average Reps Per Session: {Math.round(averageReps)} reps</p>
+            <p>Average Therapy Duration: {formattedAverageDuration}</p>
+            <p>Average RPE Per Session: {averageRpe.toFixed(2)}</p>
           </>
         )}
-      </div>
-
-      <div className="card">
-        <h2>Average Reps Per Session</h2>
-        <p>{Math.round(averageReps)} reps</p>
       </div>
 
       <div className="card chart-container">
@@ -65,19 +63,9 @@ const Dashboard: React.FC = () => {
         <BarChart data={chartData} />
       </div>
 
-      <div className="card">
-        <h2>Average Therapy Duration</h2>
-        <p>{formattedAverageDuration}</p>
-      </div>
-
       <div className="card chart-container">
         <h2>Average Therapy Duration Long / Medium / Short</h2>
         <PieChart data={durationPieData} />
-      </div>
-
-      <div className="card">
-        <h2>Average RPE Per Session</h2>
-        <p>{averageRpe.toFixed(2)}</p>
       </div>
 
       <div className="card chart-container">
