@@ -1,8 +1,10 @@
 module.exports = {
-  testEnvironment: "jsdom",
-  testMatch: ["**/src/tests/**/*.(test|spec).(ts|tsx)"],
-  transform: {
-    "^.+\\.tsx?$": "ts-jest",
+  moduleNameMapper: {
+    '\\.(css|less)$': '<rootDir>/src/tests/styleMock.js',
   },
-  moduleFileExtensions: ["ts", "tsx", "js", "jsx", "json", "node"],
+  testEnvironment: 'jsdom',
+  transform: {
+    '^.+\\.tsx?$': 'ts-jest',
+  },
+  moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx', 'json', 'node'],
 };
