@@ -1,20 +1,15 @@
 import express from "express";
-import ActivityLog from "../models/ActivityLog.js";
+import ActivityLog from "../models/activityLog.js";
 
 const router = express.Router();
 
 router.get("/", async (req, res) => {
-  const logs = await ActivityLog.find().populate("patientId");
-  res.json(logs);
-});
-
-router.post("/", async (req, res) => {
   try {
-    const newLog = new ActivityLog(req.body);
-    await newLog.save();
-    res.status(201).json(newLog);
-  } catch (err) {
-    res.status(400).json({ error: err.message });
+    const activityLogs = await ActivityLog.find();
+    return res.json(activityLogs);
+  } catch (error) {
+    console.error("Error fetching activity logs:", error);
+    return res.status(500).json({ message: "Failed to fetch activity logs" });
   }
 });
 

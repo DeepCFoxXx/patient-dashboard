@@ -11,4 +11,4 @@ const activityLogSchema = new mongoose.Schema({
   rpeScore: { type: Number, required: true, min: 1, max: 10 },
 });
 
-export default mongoose.model("ActivityLog", activityLogSchema);
+export default mongoose.model("ActivityLog", activityLogSchema, "activityLogs");
