@@ -1,6 +1,6 @@
 import '@testing-library/jest-dom';
 import { render, screen } from '@testing-library/react';
-import BarChart from '../components/BarChart';
+import BarChart from '../../components/BarChart';
 
 jest.mock('@nivo/bar', () => ({
   ResponsiveBar: ({ data }: { data: { date: string; totalReps: number }[] }) => (

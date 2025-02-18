@@ -1,4 +1,4 @@
-import { convertSecondsToHMS } from "../helpers/sessionHelpers";
+import { convertSecondsToHMS } from "../../helpers/sessionHelpers";
 
 describe("convertSecondsToHMS", () => {
     it("should convert seconds to hours, minutes, and seconds correctly", () => {

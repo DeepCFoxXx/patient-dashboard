@@ -1,6 +1,6 @@
 import '@testing-library/jest-dom';
 import { render, screen } from '@testing-library/react';
-import LineChart from '../components/LineChart';
+import LineChart from '../../components/LineChart';
 
 jest.mock('@nivo/line', () => ({
   ResponsiveLine: ({ data }: { data: { id: string; data: { x: string; y: number }[] }[] }) => (

@@ -1,4 +1,4 @@
-import { prepareChartData } from "../helpers/sessionHelpers";
+import { prepareChartData } from "../../helpers/sessionHelpers";
 
 describe("prepareChartData", () => {
   it("should prepare chart data correctly", () => {

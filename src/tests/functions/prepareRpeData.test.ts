@@ -1,4 +1,4 @@
-import { prepareRpeData } from "../helpers/sessionHelpers";
+import { prepareRpeData } from "../../helpers/sessionHelpers";
 
 describe("prepareRpeData", () => {
   it("should prepare RPE data correctly", () => {

@@ -1,6 +1,6 @@
 import '@testing-library/jest-dom';
 import { render, screen } from '@testing-library/react';
-import PieChart from '../components/PieChart';
+import PieChart from '../../components/PieChart';
 
 jest.mock('@nivo/pie', () => ({
   ResponsivePie: ({ data }: { data: { id: string; label: string; value: number }[] }) => (

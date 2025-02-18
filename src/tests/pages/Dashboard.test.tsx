@@ -1,22 +1,22 @@
 import '@testing-library/jest-dom';
 import { render, screen } from '@testing-library/react';
 import React from 'react';
-import { activityLogs } from '../data/activityLogs';
-import { patientData } from '../data/patientData';
-import { calculateAverages, convertSecondsToHMS, prepareChartData, prepareRpeData, processSessionData } from '../helpers/sessionHelpers';
-import Dashboard from '../pages/Dashboard';
+import { activityLogs } from '../../data/activityLogs';
+import { patientData } from '../../data/patientData';
+import { calculateAverages, convertSecondsToHMS, prepareChartData, prepareRpeData, processSessionData } from '../../helpers/sessionHelpers';
+import Dashboard from '../../pages/Dashboard';
 
-jest.mock('../components/BarChart', () => ({
+jest.mock('../../components/BarChart', () => ({
   __esModule: true,
   default: ({ data }: { data: Record<string, unknown> }) => <div data-testid="mock-bar-chart">{JSON.stringify(data)}</div>,
 }));
 
-jest.mock('../components/LineChart', () => ({
+jest.mock('../../components/LineChart', () => ({
   __esModule: true,
   default: ({ data }: { data: Record<string, unknown> }) => <div data-testid="mock-line-chart">{JSON.stringify(data)}</div>,
 }));
 
-jest.mock('../components/PieChart', () => ({
+jest.mock('../../components/PieChart', () => ({
   __esModule: true,
   default: ({ data }: { data: Record<string, unknown> }) => <div data-testid="mock-pie-chart">{JSON.stringify(data)}</div>,
 }));

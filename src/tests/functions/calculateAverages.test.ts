@@ -1,5 +1,5 @@
-import { calculateAverages } from "../helpers/sessionHelpers";
-import { SessionDataMap } from "../types";
+import { calculateAverages } from "../../helpers/sessionHelpers";
+import { SessionDataMap } from "../../types";
 
 describe("calculateAverages", () => {
   it("should calculate averages correctly", () => {
