@@ -1,4 +1,4 @@
-import { SessionDataMap } from "../types";
+import { SessionDataMap } from "../types/globalTypes";
 
 
 export const processSessionData = (

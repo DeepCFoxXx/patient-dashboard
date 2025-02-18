@@ -1,5 +1,5 @@
 import { processSessionData } from "../../helpers/sessionHelpers";
-import { SessionDataMap } from "../../types";
+import { SessionDataMap } from "../../types/globalTypes";
 
 describe("processSessionData", () => {
   it("should correctly accumulate session data for valid input", () => {

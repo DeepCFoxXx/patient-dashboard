@@ -6,7 +6,7 @@ import { activityLogs } from "../data/activityLogs";
 import { patientData } from "../data/patientData";
 import { calculateAverages, convertSecondsToHMS, prepareChartData, prepareRpeData, processSessionData } from "../helpers/sessionHelpers";
 import "../styles/styles.css";
-import { ActivityLog, Patient, SessionDataMap } from "../types";
+import { ActivityLog, Patient, SessionDataMap } from "../types/globalTypes";
 
 const Dashboard: React.FC = () => {
   const [patient, setPatient] = useState<Patient | null>(null);

@@ -23,7 +23,6 @@ const LineChart: React.FC<LineChartProps> = ({ data }) => {
         pointSize={10}
         pointBorderWidth={2}
         pointBorderColor={{ from: "color", modifiers: [["darker", 0.3]] }}
-        // enableArea={true}
         areaOpacity={0.1}
         animate={true}
         motionConfig="default"
