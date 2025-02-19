@@ -30,4 +30,10 @@ export interface Patient {
     error: string | null;
   }
 
+  export interface RegistrationFormProps {
+    onSubmit: (username: string, password: string) => Promise<void>;
+    error?: string | null;
+  }
+
+
   export type SessionDataMap = Record<string, SessionData>;

@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import "../styles/login-styles.css";
 
-const Login: React.FC = () => {
+const Registration: React.FC = () => {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const [error, setError] = useState<string | null>(null);
@@ -23,7 +23,7 @@ const Login: React.FC = () => {
 
             if (!response.ok) {
                 const errorData = await response.json();
-                throw new Error(errorData.message || 'Invalid credentials');
+                throw new Error(errorData.message || 'Login failed');
             }
 
             const data = await response.json();
@@ -40,7 +40,7 @@ const Login: React.FC = () => {
 
     return (
         <div className="login-page">
-            <h2 className="sign">Weclome Please Login</h2>
+            <h2 className="sign">Welcome Please Login</h2>
             {error && <p className="error" style={{ color: 'red' }}>{error}</p>}
             <form className="form1" onSubmit={handleLogin}>
                 <input
@@ -61,8 +61,11 @@ const Login: React.FC = () => {
                 />
                 <button className="submit" type="submit">Login</button>
             </form>
+            <p>
+                Don't have an account ? <a href="/register">Register here</a>
+            </p>
         </div>
     );
 };
 
-export default Login;
+export default Registration;
