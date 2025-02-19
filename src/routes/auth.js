@@ -5,6 +5,26 @@ import User from '../models/User.js';
 
 const router = express.Router();
 
+router.post('/register', async (req, res) => {
+  const { username, password } = req.body;
+
+  try {
+    const userExists = await User.findOne({ username });
+    if (userExists) {
+      return res.status(400).json({ message: 'User already exists' });
+    }
+
+    const hashedPassword = await bcrypt.hash(password, 10);
+    const newUser = new User({ username, password: hashedPassword });
+    await newUser.save();
+
+    res.status(201).json({ message: 'User registered successfully' });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ message: 'Server error' });
+  }
+});
+
 router.post('/login', async (req, res) => {
   const { username, password } = req.body;
 
@@ -25,11 +45,7 @@ router.post('/login', async (req, res) => {
       { expiresIn: '1h' }
     );
 
-    res.json({
-      message: 'Login successful',
-      token: token,
-    });
-
+    res.json({ message: 'Login successful', token });
   } catch (error) {
     console.error(error);
     res.status(500).json({ message: 'Server error' });
