@@ -14,7 +14,14 @@ const PieChart: React.FC<PieChartProps> = ({ data }) => {
         innerRadius={0.5}
         padAngle={2}
         cornerRadius={5}
-        colors={{ scheme: "set2" }}
+        colors={[
+          "#e0b3f2",
+          "#d17ae8",
+          "#a45ed7",
+          "#9b39c9",
+          "#7e1da3",
+          "#6b1f82"
+        ]}
         borderWidth={1}
         borderColor={{ from: "color", modifiers: [["darker", 0.8]] }}
         arcLinkLabelsSkipAngle={10}

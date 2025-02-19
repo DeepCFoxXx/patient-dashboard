@@ -25,4 +25,9 @@ export interface Patient {
     rpeCount: number;
   }
 
+  export interface LoginFormProps {
+    onSubmit: (username: string, password: string) => Promise<void>;
+    error: string | null;
+  }
+
   export type SessionDataMap = Record<string, SessionData>;

@@ -1,0 +1,81 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Dashboard Component matches the snapshot (loaded state) 1`] = `
+<DocumentFragment>
+  <div
+    class="dashboard"
+  >
+    <div
+      class="card patient-details"
+    >
+      <h2
+        class="underline"
+      >
+        Patient Details
+      </h2>
+      <div
+        class="patient-info"
+      >
+        <div
+          class="patient-info-left"
+        >
+          <p>
+            Name: John Doe
+          </p>
+          <p>
+            Date of Birth: 1950-05-05
+          </p>
+          <p>
+            Average Reps Per Session: 609 reps
+          </p>
+          <p>
+            Average Therapy Duration: 1h 54m 52s
+          </p>
+          <p>
+            Average RPE Per Session: 5.39
+          </p>
+        </div>
+        <div
+          class="patient-info-right"
+        >
+          <h3>
+            Average Therapy Duration
+          </h3>
+          <div
+            data-testid="mock-pie-chart"
+          >
+            [{"id":"Short","label":"Short","value":10},{"id":"Medium","label":"Medium","value":30},{"id":"Long","label":"Long","value":20}]
+          </div>
+        </div>
+      </div>
+    </div>
+    <div
+      class="card chart-container"
+    >
+      <h2>
+        Reps Per Day
+      </h2>
+      <div
+        data-testid="mock-bar-chart"
+      >
+        [{"date":"2025-01-01","totalReps":1741},{"date":"2025-01-02","totalReps":799},{"date":"2025-01-03","totalReps":1162},{"date":"2025-01-04","totalReps":1333},{"date":"2025-01-05","totalReps":1662}]
+      </div>
+    </div>
+    <div
+      class="card chart-container"
+    >
+      <h2>
+        RPE Over Time
+      </h2>
+      <div
+        data-testid="mock-line-chart"
+      >
+        [{"id":"RPE","data":[{"x":"2025-01-01","y":4},{"x":"2025-01-02","y":4},{"x":"2025-01-03","y":3},{"x":"2025-01-04","y":8},{"x":"2025-01-05","y":9}]}]
+      </div>
+    </div>
+    <button>
+      Logout
+    </button>
+  </div>
+</DocumentFragment>
+`;

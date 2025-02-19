@@ -18,7 +18,14 @@ const LineChart: React.FC<LineChartProps> = ({ data }) => {
           tickPadding: 5,
           tickRotation: 0,
         }}
-        colors={{ scheme: "set2" }}
+        colors={[
+          "#e0b3f2",
+          "#d17ae8",
+          "#a45ed7",
+          "#9b39c9",
+          "#7e1da3",
+          "#6b1f82"
+        ]}
         lineWidth={3}
         pointSize={10}
         pointBorderWidth={2}
