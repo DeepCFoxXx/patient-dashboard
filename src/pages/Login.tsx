@@ -1,11 +1,13 @@
 import React, { useState } from 'react';
+import { FaEye, FaEyeSlash } from 'react-icons/fa';
 import { useNavigate } from 'react-router-dom';
 import "../styles/login-styles.css";
 
-const Registration: React.FC = () => {
+const Login: React.FC = () => {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const [error, setError] = useState<string | null>(null);
+    const [showPassword, setShowPassword] = useState(false);
     const navigate = useNavigate();
 
     const handleLogin = async (e: React.FormEvent) => {
@@ -51,21 +53,26 @@ const Registration: React.FC = () => {
                     placeholder="Username"
                     required
                 />
-                <input
-                    className="pass"
-                    type="password"
-                    value={password}
-                    onChange={(e) => setPassword(e.target.value)}
-                    placeholder="Password"
-                    required
-                />
+                <div className="password-input">
+                    <input
+                        className="pass"
+                        type={showPassword ? 'text' : 'password'}
+                        value={password}
+                        onChange={(e) => setPassword(e.target.value)}
+                        placeholder="Password"
+                        required
+                    />
+                    <span onClick={() => setShowPassword(!showPassword)}>
+                        {showPassword ? <FaEyeSlash size={20} /> : <FaEye size={20} />}
+                    </span>
+                </div>
                 <button className="submit" type="submit">Login</button>
             </form>
             <p>
-                Don't have an account ? <a href="/register">Register here</a>
+                Don't have an account? <a href="/register">Register here</a>
             </p>
         </div>
     );
 };
 
-export default Registration;
+export default Login;

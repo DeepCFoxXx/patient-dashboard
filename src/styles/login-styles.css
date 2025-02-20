@@ -10,18 +10,18 @@ body {
     width: 400px;
     height: auto;
     margin: 7em auto;
+    padding: 40px;
     border-radius: 1.5em;
     box-shadow: 0px 11px 35px 2px rgba(0, 0, 0, 0.14);
-    padding: 40px;
     display: flex;
     flex-direction: column;
     align-items: center;
 }
 
 .sign {
-    color: #8C55AA;
-    font-weight: bold;
     font-size: 23px;
+    font-weight: bold;
+    color: #8C55AA;
     text-align: center;
     margin-bottom: 30px;
 }
@@ -34,22 +34,21 @@ body {
 }
 
 .un, .pass {
-    width: 80%;
+    width: 100%;
     max-width: 350px;
-    color: rgb(38, 50, 56);
-    font-weight: 700;
-    font-size: 14px;
-    letter-spacing: 1px;
-    background: rgba(136, 126, 126, 0.04);
     padding: 10px 20px;
-    border: none;
+    margin: 0 auto 27px;
+    border: 2px solid rgba(0, 0, 0, 0.02);
     border-radius: 20px;
+    background: rgba(136, 126, 126, 0.04);
     outline: none;
     box-sizing: border-box;
-    border: 2px solid rgba(0, 0, 0, 0.02);
-    margin: 0 auto 27px;
     text-align: center;
     font-family: 'Ubuntu', sans-serif;
+    font-size: 14px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    color: rgb(38, 50, 56);
 }
 
 .un:focus, .pass:focus {
@@ -57,27 +56,56 @@ body {
 }
 
 .submit {
-    cursor: pointer;
-    border-radius: 5em;
-    color: #fff;
-    background: linear-gradient(to right, #9C27B0, #E040FB);
-    border: 0;
+    display: block;
     padding: 10px 40px;
+    margin: 0 auto;
+    border: 0;
+    border-radius: 5em;
+    background: linear-gradient(to right, #9C27B0, #E040FB);
+    box-shadow: 0 0 20px 1px rgba(0, 0, 0, 0.04);
+    color: #fff;
     font-family: 'Ubuntu', sans-serif;
     font-size: 13px;
-    margin: 0 auto;
-    display: block;
-    box-shadow: 0 0 20px 1px rgba(0, 0, 0, 0.04);
+    cursor: pointer;
 }
 
 a {
-    text-shadow: 0px 0px 3px rgba(117, 117, 117, 0.12);
     color: #E1BEE7;
     text-decoration: none;
+    text-shadow: 0px 0px 3px rgba(117, 117, 117, 0.12);
 }
 
 @media (max-width: 600px) {
     .login-page {
         border-radius: 0px;
     }
+}
+
+.login-page .password-input {
+    position: relative;
+    width: 90%;
+    max-width: 350px;
+    margin: 0 auto 27px;
+}
+
+.login-page .password-input input {
+    width: 100%;
+    max-width: 500px;
+    padding: 10px 20px;
+    font-size: 14px;
+    font-family: 'Ubuntu', sans-serif;
+    border: 2px solid rgba(0, 0, 0, 0.02);
+    border-radius: 20px;
+    outline: none;
+    box-sizing: border-box;
+}
+
+.login-page .password-input span {
+    position: absolute;
+    top: 33%;
+    right: 15px;
+    transform: translateY(-50%);
+    color: #8C55AA;
+    cursor: pointer;
+    pointer-events: all;
 }
