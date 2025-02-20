@@ -9,12 +9,20 @@ const app = express();
 app.use(express.json());
 app.use('/api/activityLogs', activityLogsRouter);
 
+export const activityLogData = {
+  patientId: "d82315d2-5bda-4e11-be41-1924395c7f6b",
+  sessionId: "a2dd2365-cf26-443a-b168-ac6a26f87bf6",
+  activityLogId: "2052d792-5372-4c03-b579-944f7783f256",
+  activityType: "ASSIST_MODE",
+  timestamp: "2025-01-01T09:51:00",
+  durationInSeconds: 1424,
+  completedRepCount: 178,
+  rpeScore: 8
+};
+
 describe('GET /api/activityLogs', () => {
   it('should return all activity logs', async () => {
-    const mockActivityLogs = [
-      { _id: '1', action: 'login', timestamp: '2023-01-01T00:00:00Z' },
-      { _id: '2', action: 'logout', timestamp: '2023-01-02T00:00:00Z' },
-    ];
+    const mockActivityLogs = [activityLogData];
     ActivityLog.find.mockResolvedValue(mockActivityLogs);
 
     const response = await request(app).get('/api/activityLogs');
