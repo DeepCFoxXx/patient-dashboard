@@ -2,6 +2,15 @@ import React, { useState } from 'react';
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
 import { RegistrationFormProps } from '../types/globalTypes';
 
+const sanitizeInput = (input: string) => {
+  return input.replace(/<[^>]*>/g, '');
+};
+
+const isInputValid = (input: string) => {
+  const sqlInjectionPattern = /(\b(SELECT|INSERT|UPDATE|DELETE|DROP|CREATE|ALTER|TRUNCATE|EXEC|UNION|--|\/\*|;)\b)/i;
+  return !sqlInjectionPattern.test(input);
+};
+
 const RegistrationForm: React.FC<RegistrationFormProps> = ({ onSubmit }) => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
@@ -11,11 +20,21 @@ const RegistrationForm: React.FC<RegistrationFormProps> = ({ onSubmit }) => {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
+
     if (password !== confirmPassword) {
       alert("Passwords do not match.");
       return;
     }
-    onSubmit(username, password);
+
+    const sanitizedUsername = sanitizeInput(username);
+    const sanitizedPassword = sanitizeInput(password);
+
+    if (!isInputValid(sanitizedUsername) || !isInputValid(sanitizedPassword)) {
+      alert("Invalid input detected.");
+      return;
+    }
+
+    onSubmit(sanitizedUsername, sanitizedPassword);
   };
 
   return (

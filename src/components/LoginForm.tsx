@@ -1,6 +1,12 @@
+import DOMPurify from 'dompurify';
 import React, { useState } from 'react';
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
 import { LoginFormProps } from '../types/globalTypes';
+
+const isInputValid = (input: string) => {
+  const sqlInjectionPattern = /(\b(SELECT|INSERT|UPDATE|DELETE|DROP|CREATE|ALTER|TRUNCATE|EXEC|UNION|--|\/\*|;)\b)/i;
+  return !sqlInjectionPattern.test(input);
+};
 
 const LoginForm: React.FC<LoginFormProps> = ({ onSubmit, error }) => {
   const [username, setUsername] = useState('');
@@ -9,7 +15,16 @@ const LoginForm: React.FC<LoginFormProps> = ({ onSubmit, error }) => {
 
   const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
-    await onSubmit(username, password);
+
+    const sanitizedUsername = DOMPurify.sanitize(username);
+    const sanitizedPassword = DOMPurify.sanitize(password);
+
+    if (!isInputValid(sanitizedUsername) || !isInputValid(sanitizedPassword)) {
+      alert("Invalid input detected.");
+      return;
+    }
+
+    await onSubmit(sanitizedUsername, sanitizedPassword);
   };
 
   return (
