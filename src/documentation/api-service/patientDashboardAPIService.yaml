@@ -1,0 +1,242 @@
+openapi: 3.0.0
+info:
+  title: Patient Dashboard API Service
+  description: API for retrieving activity logs, user authentication, and patient management.
+  version: 1.0.0
+
+servers:
+  - url: http://localhost:5001
+    description: Local development server
+
+paths:
+  /register:
+    post:
+      summary: Register a new user
+      description: Creates a new user in the system.
+      operationId: registerUser
+      tags:
+        - Authentication
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                username:
+                  type: string
+                  example: "johndoe"
+                password:
+                  type: string
+                  example: "Password123"
+                role:
+                  type: string
+                  example: "user"
+      responses:
+        "201":
+          description: User registered successfully.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: "User registered successfully"
+        "400":
+          description: User already exists.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: "User already exists"
+        "500":
+          description: Server error during registration.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: "Server error"
+
+  /login:
+    post:
+      summary: Login user
+      description: Authenticates a user and returns a token.
+      operationId: loginUser
+      tags:
+        - Authentication
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                username:
+                  type: string
+                  example: "johndoe"
+                password:
+                  type: string
+                  example: "Password123"
+      responses:
+        "200":
+          description: Login successful.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: "Login successful"
+                  token:
+                    type: string
+                    example: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
+        "400":
+          description: Invalid username or password.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: "Invalid username or password"
+        "500":
+          description: Server error during login.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: "Server error"
+
+  /api/activityLogs:
+    get:
+      summary: Get all activity logs
+      description: Retrieves a list of activity logs from the database.
+      operationId: getActivityLogs
+      tags:
+        - Activity Logs
+      security:
+        - BearerAuth: []  # Security requirement for this endpoint
+      responses:
+        "200":
+          description: A list of activity logs.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/ActivityLog"
+        "500":
+          description: Server error when fetching activity logs.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: "Failed to fetch activity logs"
+
+  /api/patients:
+    get:
+      summary: Get all patients
+      description: Retrieves a list of all patients from the database.
+      operationId: getPatients
+      tags:
+        - Patients
+      responses:
+        "200":
+          description: A list of patients.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Patient"
+        "500":
+          description: Server error when fetching patients.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: "Failed to fetch patients"
+
+components:
+  schemas:
+    ActivityLog:
+      type: object
+      properties:
+        patientId:
+          type: string
+          format: uuid
+          example: "d82315d2-5bda-4e11-be41-1924395c7f6b"
+        sessionId:
+          type: string
+          format: uuid
+          example: "a2dd2365-cf26-443a-b168-ac6a26f87bf6"
+        activityLogId:
+          type: string
+          format: uuid
+          example: "2052d792-5372-4c03-b579-944f7783f256"
+        activityType:
+          type: string
+          example: "ASSIST_MODE"
+          enum:
+            - ASSIST_MODE
+            - FREE_MODE
+            - GUIDED_MODE
+        timestamp:
+          type: string
+          format: date-time
+          example: "2025-01-01T09:51:00"
+        durationInSeconds:
+          type: integer
+          example: 1424
+        completedRepCount:
+          type: integer
+          example: 178
+        rpeScore:
+          type: integer
+          minimum: 1
+          maximum: 10
+          example: 8
+
+    Patient:
+      type: object
+      properties:
+        patientId:
+          type: string
+          format: uuid
+          example: "f9478f6b-0c39-4873-b52e-23f1e1c7650e"
+        name:
+          type: string
+          example: "John Doe"
+        age:
+          type: integer
+          example: 30
+        gender:
+          type: string
+          example: "male"
+        medicalHistory:
+          type: string
+          example: "No significant medical history"
+
+  securitySchemes:
+    BearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT

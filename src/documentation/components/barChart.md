@@ -10,21 +10,24 @@ To use the `BarChart` component, ensure you have `@nivo/bar` and `react` install
 
 ```bash
 npm install @nivo/bar react
-Props
+```
+
+## Props
+
 The BarChart component accepts the following props:
 
-data
-Type: Array<{ date: string; totalReps: number }>
-Required: Yes
-Description: An array of objects representing the data to be displayed in the bar chart. Each object should have:
-date: A string representing the date (used as the index for the bars).
-totalReps: A number representing the total repetitions for the corresponding date.
-Usage
+- **data**
+  **Type:** `Array<{ date: string; totalReps: number }>`
+  **Required:** Yes
+  **Description:** An array of objects representing the data to be displayed in the bar chart. Each object should have:
+  - `date`: A string representing the date (used as the index for the bars).
+  - `totalReps`: A number representing the total repetitions for the corresponding date.
+
+## Usage
+
 Here’s an example of how to use the BarChart component in your React application:
 
-jsx
-Copy
-Edit
+```jsx
 import React from 'react';
 import BarChart from './BarChart';
 
@@ -46,13 +49,20 @@ const App = () => {
 };
 
 export default App;
-Customization
-Chart Dimensions
-The chart has a fixed height of 400px and a width of 100%, which can be adjusted as needed.
-Chart Colors
-The chart supports a custom color palette defined in the colors array. Modify this array to change the color scheme of the bars.
-Animation
-The bars have an animated effect enabled by default, with the motionConfig set to "wobbly". You can customize the animation settings as needed.
-Notes
-Ensure that the data provided matches the expected structure to avoid rendering issues.
-The component disables labels on bars (enableLabel={false}) for a cleaner look, but this can be enabled if required by setting it to true.
+```
+
+## Customization
+
+- **Chart Dimensions**
+  The chart has a fixed height of 400px and a width of 100%, which can be adjusted as needed.
+
+- **Chart Colors**
+  The chart supports a custom color palette defined in the `colors` array. Modify this array to change the color scheme of the bars.
+
+- **Animation**
+  The bars have an animated effect enabled by default, with the `motionConfig` set to "wobbly". You can customize the animation settings as needed.
+
+## Notes
+
+- Ensure that the data provided matches the expected structure to avoid rendering issues.
+- The component disables labels on bars (`enableLabel={false}`) for a cleaner look, but this can be enabled if required by setting it to `true`.

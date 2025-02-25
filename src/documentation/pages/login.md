@@ -1,4 +1,4 @@
-# Login Component
+# Login Page
 
 ## Overview
 
@@ -10,20 +10,24 @@ Ensure you have the necessary dependencies installed before using this component
 
 ```bash
 npm install react-icons react-router-dom
-Dependencies
-React Router (useNavigate) - Handles navigation upon successful login.
-State Management (useState) - Manages form input values, error handling, and password visibility.
-Icons (react-icons/fa) - Provides eye/eye-slash icons for toggling password visibility.
-CSS Styling - Styles are imported from login-styles.css.
-Props
+```
+
+## Dependencies
+
+- **React Router (useNavigate)** - Handles navigation upon successful login.
+- **State Management (useState)** - Manages form input values, error handling, and password visibility.
+- **Icons (react-icons/fa)** - Provides eye/eye-slash icons for toggling password visibility.
+- **CSS Styling** - Styles are imported from `login-styles.css`.
+
+## Props
+
 This component does not accept any props.
 
-Usage
+## Usage
+
 To use the Login component, import and include it in a route within your React application:
 
-tsx
-Copy
-Edit
+```tsx
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Login from "./components/Login";
 
@@ -38,38 +42,47 @@ function App() {
 }
 
 export default App;
-Features
-User Authentication:
-Accepts username and password input.
-Sends a POST request to the authentication API.
-Stores a token in localStorage upon successful login.
-Redirects the user to the dashboard.
-Password Visibility Toggle:
-Uses FaEye and FaEyeSlash icons to show/hide the password.
-Error Handling:
-Displays an error message if authentication fails.
-Handles unexpected errors gracefully.
-Navigation:
-Redirects the user to the dashboard upon successful login.
-Provides a link to the registration page for new users.
-Implementation Details
-State Management
-tsx
-Copy
-Edit
+```
+
+## Features
+
+- **User Authentication:**
+  - Accepts username and password input.
+  - Sends a POST request to the authentication API.
+  - Stores a token in `localStorage` upon successful login.
+  - Redirects the user to the dashboard.
+
+- **Password Visibility Toggle:**
+  - Uses `FaEye` and `FaEyeSlash` icons to show/hide the password.
+
+- **Error Handling:**
+  - Displays an error message if authentication fails.
+  - Handles unexpected errors gracefully.
+
+- **Navigation:**
+  - Redirects the user to the dashboard upon successful login.
+  - Provides a link to the registration page for new users.
+
+## Implementation Details
+
+### State Management
+
+```tsx
 const [username, setUsername] = useState('');
 const [password, setPassword] = useState('');
 const [error, setError] = useState<string | null>(null);
 const [showPassword, setShowPassword] = useState(false);
 const navigate = useNavigate();
-username and password: Stores the user’s input values.
-error: Stores any login error messages.
-showPassword: Toggles password visibility.
-navigate: Handles redirection after login.
-Authentication Logic
-tsx
-Copy
-Edit
+```
+
+- `username` and `password`: Stores the user’s input values.
+- `error`: Stores any login error messages.
+- `showPassword`: Toggles password visibility.
+- `navigate`: Handles redirection after login.
+
+### Authentication Logic
+
+```tsx
 const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
     setError(null);
@@ -99,21 +112,25 @@ const handleLogin = async (e: React.FormEvent) => {
         }
     }
 };
-Sends a POST request to http://localhost:5001/api/auth/login.
-If authentication fails, an error message is displayed.
-If successful, the received token is stored in localStorage and the user is redirected to /dashboard.
-Password Visibility Toggle
-tsx
-Copy
-Edit
+```
+
+- Sends a POST request to `http://localhost:5001/api/auth/login`.
+- If authentication fails, an error message is displayed.
+- If successful, the received token is stored in `localStorage` and the user is redirected to `/dashboard`.
+
+### Password Visibility Toggle
+
+```tsx
 <span onClick={() => setShowPassword(!showPassword)}>
     {showPassword ? <FaEyeSlash size={20} /> : <FaEye size={20} />}
 </span>
-Clicking the icon toggles the password input between text and password types.
-UI Components
-tsx
-Copy
-Edit
+```
+
+- Clicking the icon toggles the password input between text and password types.
+
+### UI Components
+
+```tsx
 <div className="login-page">
     <h2 className="sign">Welcome Please Login</h2>
     {error && <p className="error" style={{ color: 'red' }}>{error}</p>}
@@ -135,11 +152,15 @@ Edit
     </form>
     <p>Don't have an account? <a href="/register">Register here</a></p>
 </div>
-Login form with username and password inputs.
-Password visibility toggle.
-Error message display (if applicable).
-Link to registration page.
-Notes
-Ensure the API endpoint (http://localhost:5001/api/auth/login) is running and properly configured.
-Consider encrypting the token in localStorage for better security.
-Protect the /dashboard route using an authentication guard (e.g., ProtectedRoute component).
+```
+
+- Login form with username and password inputs.
+- Password visibility toggle.
+- Error message display (if applicable).
+- Link to the registration page.
+
+## Notes
+
+- Ensure the API endpoint (`http://localhost:5001/api/auth/login`) is running and properly configured.
+- Consider encrypting the token in `localStorage` for better security.
+- Protect the `/dashboard` route using an authentication guard (e.g., `ProtectedRoute` component).
