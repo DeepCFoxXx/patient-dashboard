@@ -610,3 +610,5 @@ export const activityLogs = [
         "rpeScore": 9
     }
 ]
+
+export default activityLogs;

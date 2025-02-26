@@ -5,3 +5,5 @@ export const patientData = {
     dateOfBirth: "1950-05-05",
     dateCreated: "2024-12-25T13:14:15",
   };
+
+  export default patientData;
